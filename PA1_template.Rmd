@@ -1,6 +1,6 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
-author: "Amit Sharma"
+author: "UltraMagnus"
 output: 
   html_document:
     keep_md: true
@@ -35,8 +35,8 @@ stepsdaydata<-summarise(daygroupdata, total = sum(steps))
 ```
 ## 2. histogram of the total number of steps taken each day
 ```{r}
-hist(stepsdaydata$total, xlab = "total number of steps taken each day",
-		main = "using Data with NAs removed, Histogram of total no of steps each days ")
+hist(stepsdaydata$total, breaks = 25, xlab = "total number of steps taken each day",
+		main = "using Data with NAs removed, Histogram of total no of steps each days ", col = "green")
 ```
 
 ## 3. mean and median of the total number of steps taken per day
@@ -104,8 +104,8 @@ for( i in c(1:numrow))
 ```{r}
 daygroupdata<-group_by(newdata, date)
 stepsdaydata<-summarise(daygroupdata, total = sum(steps))
-hist(stepsdaydata$total, xlab = "total number of steps taken each day",
-		main = "using Data NAs with replaced, Histogram of total no of steps each days ")
+hist(stepsdaydata$total, breaks = 25, xlab = "total number of steps taken each day",
+		main = "using Data NAs with replaced, Histogram of total no of steps each days ", col = "green")
 ```
 
 ## 4. mean and median of the total number of steps taken per day

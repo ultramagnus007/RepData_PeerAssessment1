@@ -1,5 +1,12 @@
-# Reproducible Research: Peer Assessment 1
-Amit Sharma  
+---
+title: "Reproducible Research: Peer Assessment 1"
+author: "UltraMagnus"
+output: 
+  html_document:
+    keep_md: true
+    toc: yes
+    theme: united
+---
 
 # 1. Loading and preprocessing the data
 
@@ -17,22 +24,6 @@ data <- read.table("activity.csv", header = TRUE, sep = ",",
 ```r
 cleandata <- data[is.na(data$steps) == FALSE,]
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-## 
-## The following object is masked from 'package:stats':
-## 
-##     filter
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 library(knitr)
 ```
 
@@ -48,11 +39,11 @@ stepsdaydata<-summarise(daygroupdata, total = sum(steps))
 ## 2. histogram of the total number of steps taken each day
 
 ```r
-hist(stepsdaydata$total, xlab = "total number of steps taken each day",
-		main = "using Data with NAs removed, Histogram of total no of steps each days ")
+hist(stepsdaydata$total, breaks = 25, xlab = "total number of steps taken each day",
+		main = "using Data with NAs removed, Histogram of total no of steps each days ", col = "green")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
 ## 3. mean and median of the total number of steps taken per day
 
@@ -62,10 +53,12 @@ meanday<-mean(stepsdaydata$total)
 kable(matrix(c(meanday, medianday), nrow =2, ncol = 1, dimnames = list(c("mean", "median"), c("with NAs Removed data"))))
 ```
 
-          with NAs Removed data
--------  ----------------------
-mean                   10766.19
-median                 10765.00
+
+
+|       | with NAs Removed data|
+|:------|---------------------:|
+|mean   |              10766.19|
+|median |              10765.00|
 
 # 3. What is the average daily activity pattern?
 intervalStepData contains the average of 5 minutes interval avergaed acrossed all days
@@ -82,7 +75,7 @@ plot(intervalStepdata$interval, intervalStepdata$avg, type = "l",
 		col = "red", xlab = "5 minute interval", ylab = "average number of steps in a day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
 
 ## 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps
 
@@ -132,11 +125,11 @@ for( i in c(1:numrow))
 ```r
 daygroupdata<-group_by(newdata, date)
 stepsdaydata<-summarise(daygroupdata, total = sum(steps))
-hist(stepsdaydata$total, xlab = "total number of steps taken each day",
-		main = "using Data NAs with replaced, Histogram of total no of steps each days ")
+hist(stepsdaydata$total, breaks = 25, xlab = "total number of steps taken each day",
+		main = "using Data NAs with replaced, Histogram of total no of steps each days ", col = "green")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
 
 ## 4. mean and median of the total number of steps taken per day
 
@@ -148,10 +141,12 @@ newmeanday<-mean(stepsdaydata$total)
 kable(matrix(c(newmeanday, newmedianday), nrow =2, ncol = 1, dimnames = list(c("mean", "median"), c("with Imputed data"))))
 ```
 
-          with Imputed data
--------  ------------------
-mean               10766.19
-median             10766.19
+
+
+|       | with Imputed data|
+|:------|-----------------:|
+|mean   |          10766.19|
+|median |          10766.19|
 
 
 ## 5. impact of imputing missing data on mean and median
@@ -163,10 +158,12 @@ M<-matrix( c(meanday, medianday, newmeanday, newmedianday), nrow =2, ncol = 2,
 kable(M)
 ```
 
-          with NAs removed data   with Imputed data
--------  ----------------------  ------------------
-mean                   10766.19            10766.19
-median                 10765.00            10766.19
+
+
+|       | with NAs removed data| with Imputed data|
+|:------|---------------------:|-----------------:|
+|mean   |              10766.19|          10766.19|
+|median |              10765.00|          10766.19|
 
 As we can see after imputing the missing values No effect on mean  
 But median has changed and it become equal to mean
@@ -214,7 +211,7 @@ xyplot(newdata$avg ~ newdata$interval| newdata$WEEKDAY, type = "l", xlab = "5 mi
 					ylab = "mean number of steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-18-1.png) 
+![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png) 
 
 ### 3. conclusion  
 for weekdays plot we can see the more number of steps between apporximately 700 to 900 which corresponds to 7 AM to 9 AM
