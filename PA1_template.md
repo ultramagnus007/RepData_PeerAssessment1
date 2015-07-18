@@ -1,12 +1,14 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
 author: "UltraMagnus"
-output: 
+output:
   html_document:
-    keep_md: true
     toc: yes
     theme: united
+    keep_md: true
 ---
+
+# Reproducible Research: Peer Assessment 1
 
 # 1. Loading and preprocessing the data
 
@@ -30,13 +32,13 @@ library(knitr)
 
 # 2. What is mean total number of steps taken per day?
 
-## 1. Calculate the total number of steps taken per day
+### 1. Calculate the total number of steps taken per day
 
 ```r
 daygroupdata<-group_by(cleandata, date)
 stepsdaydata<-summarise(daygroupdata, total = sum(steps))
 ```
-## 2. histogram of the total number of steps taken each day
+### 2. histogram of the total number of steps taken each day
 
 ```r
 hist(stepsdaydata$total, breaks = 25, xlab = "total number of steps taken each day",
@@ -45,7 +47,7 @@ hist(stepsdaydata$total, breaks = 25, xlab = "total number of steps taken each d
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
-## 3. mean and median of the total number of steps taken per day
+### 3. mean and median of the total number of steps taken per day
 
 ```r
 medianday<-median(stepsdaydata$total)
@@ -68,7 +70,7 @@ intervalGroupData<-group_by(cleandata, interval)
 intervalStepdata<-summarise(intervalGroupData, avg = mean(steps))
 ```
 
-## 1. time series plot of the 5-minute interval (x-axis) vs the average number of steps taken, averaged across all days (y-axis)
+### 1. time series plot of the 5-minute interval (x-axis) vs the average number of steps taken, averaged across all days (y-axis)
 
 ```r
 plot(intervalStepdata$interval, intervalStepdata$avg, type = "l",
@@ -77,7 +79,7 @@ plot(intervalStepdata$interval, intervalStepdata$avg, type = "l",
 
 ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
 
-## 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps
+### 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps
 
 ```r
 maxInterval <- intervalStepdata[intervalStepdata$avg==max(intervalStepdata$avg),]
@@ -88,7 +90,7 @@ maxInterval contains the interval which have maximum average steps across all th
 
 # 4. Imputing missing values
 
-## 1. total number of missing values
+### 1. total number of missing values
 number of missing values = total no of rows in original data - total no of rows in cleandata(which contains No NA values)
 
 ```r
@@ -99,7 +101,7 @@ nmissing <- numrow - nrowclean
 
 number of missing values = 2304  
 
-## 2. Create a new dataset that is equal to the original dataset but with the missing data filled in
+### 2. Create a new dataset that is equal to the original dataset but with the missing data filled in
 
 intervalStepData contains the no of steps in the interval averaged accross all days, there are 288 such 5 minute intervals in a day
 in the folloing loop NA values are replaced with corresponding values from intervalStepData
@@ -119,7 +121,7 @@ for( i in c(1:numrow))
 }
 ```
 
-## 3. histogram of the total number of steps taken each day
+### 3. histogram of the total number of steps taken each day
 
 
 ```r
@@ -131,7 +133,7 @@ hist(stepsdaydata$total, breaks = 25, xlab = "total number of steps taken each d
 
 ![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
 
-## 4. mean and median of the total number of steps taken per day
+### 4. mean and median of the total number of steps taken per day
 
 
 ```r
@@ -149,7 +151,7 @@ kable(matrix(c(newmeanday, newmedianday), nrow =2, ncol = 1, dimnames = list(c("
 |median |          10766.19|
 
 
-## 5. impact of imputing missing data on mean and median
+### 5. impact of imputing missing data on mean and median
 
 
 ```r
@@ -217,6 +219,4 @@ xyplot(newdata$avg ~ newdata$interval| newdata$WEEKDAY, type = "l", xlab = "5 mi
 for weekdays plot we can see the more number of steps between apporximately 700 to 900 which corresponds to 7 AM to 9 AM
 this may be due to people go to workplace during these hours.  
 for weekend plot number of steps are more distributed accorss timeline between 700 to 2000 i.e. 7 AM to 8 PM
-
-
 
