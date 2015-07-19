@@ -92,9 +92,9 @@ nmissing <- numrow - nrowclean
 number of missing values = `r nmissing`  
 
 ### 2. strategy for filling in all of the missing values in the dataset  
-replacing the NA in steps in the 5 minute interval to average of steps in that 5 minute interval across all days.  
-intervalStepData contains the no of steps in the interval averaged accross all days, there are 288 such 5 minute intervals in a day
-in the folloing loop NA values are replaced with corresponding values from intervalStepData
+Replacing the NA in steps in the 5 minute interval to average of steps in that 5 minute interval across all days.  
+intervalStepData contains the no of steps in the interval averaged accross all days, there are 288 such 5 minute intervals in a day  
+In the following loop NA values are replaced with corresponding values from intervalStepData
 
 ### 3. Create a new dataset that is equal to the original dataset but with the missing data filled in
 
